@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>永远相信美好的事情即将发生</title>
+    <style type="text/css">
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .page-bg {
+            content: url(./index-bg.jpg);
+            width: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .box-search-content {
+            width: 76%;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            border: 1px solid #fdfdfd;
+            border-radius: 18px;
+            background: #f0f8ff05;
+            padding: 0 10px;
+            box-shadow: 0px 0px 15px #b8b8b8;
+            user-select: none;
+        }
+
+
+        .icon-input{
+            content: url("./icon-input.png");
+            width: 18px;
+        }
+
+        #form1{
+            width: 100%;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .icon-search{
+            content: url("./icon-search.png");
+            width: 18px;
+            -webkit-animation: spin 2s linear 2s 5 alternate;
+            animation: spin 2s linear infinite;
+        }
+
+        @media screen and (min-width: 1400px) {
+            .box-search-content{
+                position: fixed;
+                top: 10%;
+            }
+        }
+
+        @-webkit-keyframes spin {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .in-search-content {
+            width: calc(100% - 4px);
+            line-height: 30px;
+            background-color: transparent;
+            border: 0;
+            font-size: 16px;
+            color: #747474;
+            outline: none;
+        }
+
+        .in-search-content:focus {
+            background-color: transparent;
+            border: 0;
+            outline-offset: -2px;
+        }
+    </style>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        var hrt = document.documentElement.clientHeight //获取当前可视区域的高度存到hrt变量
+        var init = false
+
+        function focusInput(){
+            if(!init){
+                $('#input-content')[0].value = ""
+                init = true
+            }
+            $('#input-content')[0].focus()
+        }
+
+        function search () {
+            var content = $('#input-content')[0].value
+            if (content) {
+                var newUrl = encodeURI('https://www.baidu.com/ssid=66f3d2bbdcb0bbd4d2bba21f/from=844b/s?word=' + content + '&ts=0305389&t_kt=0&ie=utf-8&fm_kl=021394be2f&rsv_iqid=0699061565&rsv_t=2862NeaFFMqNj%252BGNkVsJuwbu4VXg4UXo4%252BfvHJOOxfuwy7y5jzcirhs9jw&sa=ib&tn=22073068_oem_dg&ms=1&rsv_pq=0699061565&rsv_sug4=3277&inputT=548&tj=1')
+                window.location.href = newUrl
+            }
+        }
+
+        $(function () {
+            //在页面整体加载完毕时
+            // $('.page-bg')[0].style.height = hrt + 'px'//把获取到的高度赋值给根div
+            $('#form1').on('submit', function () {
+                event.preventDefault() //阻止form表单默认提交
+                gotoBaiDu()
+            })
+            $('#input-content').focus(focusInput)
+			$('#input-content').bind('keypress', function (event) {
+				if (event.keyCode == "13") {
+					search()
+				}
+			});
+        })
+
+
+        // $('.in-search-content')[0].on('blur', function () {
+        //     setTimeout(function () {
+        //         window.scrollTo(0, 0)
+        //     }, 100)
+        // })
+
+    </script>
+</head>
+<body>
+<div class="page">
+    <div class="box-search-content">
+        <img class="icon-input" onclick="focusInput()">
+        <form id="form1" action="" method="get">
+            <input id="input-content" class="in-search-content" type="text" autocomplete="off" value="笑看风起云涌时~"/>
+        </form>
+        <img class="icon-search" onclick="search()">
+    </div>
+    <img class="page-bg"/>
+</div>
+
+</body>
+</html>
